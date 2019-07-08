@@ -161,7 +161,7 @@ class ProductController extends Controller
 
         $productTypes = core()->sortItems($items);
 
-        $article= auth()->guard('customer')->user()->id;
+//        $article= auth()->guard('customer')->user()->id;
 
         return view($this->_config['view'], compact('families', 'configurableFamily','productTypes'));
     }

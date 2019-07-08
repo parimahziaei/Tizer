@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddWwToProducts extends Migration
+class AddAdminIdToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,8 @@ class AddWwToProducts extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-//            $table->dropColumn('customer_id');
-
-
-
+            $table->integer('admin_id')->unsigned()->nullable();
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('SET NULL');
             //
         });
     }
@@ -31,10 +29,12 @@ class AddWwToProducts extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-//            $table->integer('customer_id');
 
 
+            $table->dropForeign(['admin_id']);
 
+            // 2. Drop the column
+            $table->dropColumn('admin_id');
         });
     }
 }

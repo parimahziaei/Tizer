@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['prefix' => 'api'], function ($router) {
-    
+
     Route::group(['namespace' => 'Webkul\API\Http\Controllers\Shop', 'middleware' => ['locale', 'theme', 'currency']], function ($router) {
         //Currency and Locale switcher
         Route::get('switch-currency', 'CoreController@switchCurrency');
@@ -47,10 +47,16 @@ Route::group(['prefix' => 'api'], function ($router) {
         ]);
 
 
+        Route::group(['middleware' => ['auth', 'admin']], function() {
+
+            // your routes
+            Route::get('products/{id}', 'ProductController@get');
+        });
+
         //Product routes
         Route::get('products', 'ProductController@index');
 
-        Route::get('products/{id}', 'ProductController@get');
+//        Route::get('products/{id}', 'ProductController@get');
 
         Route::get('product-additional-information/{id}', 'ProductController@additionalInformation');
 

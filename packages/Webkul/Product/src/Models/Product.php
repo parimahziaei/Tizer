@@ -30,12 +30,16 @@ class Product extends Model implements ProductContract
 
     public function onCreating(\Webkul\Product\Models\Product $row)
     {
-        // Placeholder for catching any exceptions
-        if (!auth()->guard('customer')->user()->id) {
-            return false;
+//         Placeholder for catching any exceptions
+//        if (!auth()->guard('customer','admin')->user()->id ) {
+//            return false;
+//        }
+        if (auth()->guard('customer')->user()) {
+            $row->setAttribute('customer_id', auth()->guard('customer')->user()->id);
         }
-
-        $row->setAttribute('customer_id', auth()->guard('customer')->user()->id);
+        if (auth()->guard('admin')->user()) {
+            $row->setAttribute('admin_id', auth()->guard('admin')->user()->id);
+        }
     }
 
 

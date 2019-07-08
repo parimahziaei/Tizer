@@ -64,7 +64,7 @@ class AdminServiceProvider extends ServiceProvider
     {
         view()->composer(['admin::layouts.nav-left', 'admin::layouts.nav-aside', 'admin::layouts.tabs'], function ($view) {
             $tree = Tree::create();
-//
+
 //            $permissionType = auth()->guard('admin')->user()->role->permission_type;
 //            $allowedPermissions = auth()->guard('admin')->user()->role->permissions;
 

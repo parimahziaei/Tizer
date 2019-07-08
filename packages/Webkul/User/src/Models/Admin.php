@@ -38,6 +38,9 @@ class Admin extends Authenticatable implements AdminContract
     {
         return $this->belongsTo(RoleProxy::modelClass());
     }
+    public function products(){
+        return $this->hasMany('\Webkul\Product\Models\Product'); //Product Model Name??????????
+    }
 
     /**
     * Send the password reset notification.
