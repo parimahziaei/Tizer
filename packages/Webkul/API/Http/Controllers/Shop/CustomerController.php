@@ -57,7 +57,9 @@ class CustomerController extends Controller
                 'password' => bcrypt($data['password']),
                 'channel_id' => core()->getCurrentChannel()->id,
                 'is_verified' => 1,
-                'customer_group_id' => 1
+                'customer_group_id' => 1,
+            //parimah
+             'token' => md5(uniqid(rand(), true)),
             ]);
 
         Event::fire('customer.registration.before');

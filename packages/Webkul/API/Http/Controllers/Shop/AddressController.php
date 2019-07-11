@@ -66,6 +66,7 @@ class AddressController extends Controller
         request()->merge([
             'address1' => implode(PHP_EOL, array_filter(request()->input('address1'))),
             'customer_id' => $customer->id
+
         ]);
 
         $this->validate(request(), [
@@ -74,7 +75,8 @@ class AddressController extends Controller
             'state' => 'string|required',
             'city' => 'string|required',
             'postcode' => 'required',
-            'phone' => 'required'
+            'phone' => 'required',
+//            'customer_id' =>'required'
         ]);
 
         $customerAddress = $this->customerAddressRepository->create(request()->all());
