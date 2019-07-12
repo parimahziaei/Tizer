@@ -62,11 +62,13 @@ class AddressController extends Controller
     public function store()
     {
         $customer = auth($this->guard)->user();
+//        auth()->guard($this->guard)->user()
+//            auth($this->guard)->user();
+//        auth()->guard('customer')->check()
 
         request()->merge([
             'address1' => implode(PHP_EOL, array_filter(request()->input('address1'))),
             'customer_id' => $customer->id
-
         ]);
 
         $this->validate(request(), [
@@ -75,8 +77,7 @@ class AddressController extends Controller
             'state' => 'string|required',
             'city' => 'string|required',
             'postcode' => 'required',
-            'phone' => 'required',
-//            'customer_id' =>'required'
+            'phone' => 'required'
         ]);
 
         $customerAddress = $this->customerAddressRepository->create(request()->all());

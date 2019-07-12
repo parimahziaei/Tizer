@@ -4,6 +4,7 @@ namespace Webkul\API\Http\Controllers\Shop;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Webkul\API\Http\Resources\Customer\CustomerAddress as CustomerAddressResource;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\API\Http\Resources\Catalog\Product as ProductResource;
 
@@ -33,6 +34,37 @@ class ProductController extends Controller
         $this->productRepository = $productRepository;
     }
 
+
+
+    //parimah create product
+    public function create()
+    {
+//        request()->customer_id=auth()->guard('customer')->user()->id;
+//        if (!request()->get('family') && request()->input('type') == 'configurable' && request()->input('sku') != '') {
+//            return redirect(url()->current() . '?family=' . request()->input('attribute_family_id') . '&sku=' . request()->input('sku'));
+//        }
+//
+//        if (request()->input('type') == 'configurable' && (! request()->has('super_attributes') || ! count(request()->get('super_attributes')))) {
+//            session()->flash('error', trans('admin::app.catalog.products.configurable-error'));
+//
+//            return back();
+//        }
+
+        $this->validate(request(), [
+            'type' => 'required',
+            'attribute_family_id' => 'required',
+            'sku' => ['required', 'unique:products,sku', new \Webkul\Core\Contracts\Validations\Slug],
+
+        ]);
+
+        $product = $this->productRepository->create(request()->all());
+
+        return response()->json([
+            'message' => 'Your product has been created successfully.',
+            'data' => new ProductResource($product)
+        ]);
+
+    }
     /**
      * Returns a listing of the resource.
      *

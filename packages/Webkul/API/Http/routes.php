@@ -46,10 +46,11 @@ Route::group(['prefix' => 'api'], function ($router) {
             'resource' => 'Webkul\API\Http\Resources\Catalog\AttributeFamily'
         ]);
 
-//        Route::middleware('auth:api')->group(function() {
-            Route::get('/user3' , 'ProductController@index');
-//        });
+        Route::middleware('auth:api')->group(function() {
+            Route::get('/user' , 'ProductController@index');
+        });
 
+        Route::post('/products/create' , 'ProductController@create');
 
 //        Route::group(['middleware' => ['auth', 'admin']], function() {
 

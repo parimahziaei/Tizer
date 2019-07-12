@@ -187,15 +187,13 @@ class ProductController extends Controller
             'type' => 'required',
             'attribute_family_id' => 'required',
             'sku' => ['required', 'unique:products,sku', new \Webkul\Core\Contracts\Validations\Slug],
-//            'customer_id'=> 'required'
 
         ]);
 
         $product = $this->product->create(request()->all());
 
         session()->flash('success', trans('admin::app.response.create-success', ['name' => 'Product']));
-//        print(request()->customer_id);
-//        print(product()-> customer_id);
+
 
         return redirect()->route($this->_config['redirect'], ['id' => $product->id]);
     }
